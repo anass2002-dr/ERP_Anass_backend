@@ -4,7 +4,7 @@ namespace ERP_Anass_backend.DTOs
 {
     public class ArticleDtos
     {
-        //public int idArticle { get; set; }
+        public int idArticle { get; set; }
         public string ArticleRef { get; set; }
         public string ArticleName { get; set; } = "";
         public string DescriptionArticle { get; set; } = "";

@@ -18,6 +18,11 @@ builder.Services.AddDbContext<DbContextERP>(options =>
     b => b.MigrationsAssembly("ERP_Anass_backend")));
 
 // Add services to the container.
+var Myplociy = "Mypolicy";
+builder.Services.AddCors(options => options.AddPolicy(name: Myplociy, policy =>
+{
+    policy.WithOrigins("http://localhost:4200").AllowAnyMethod().AllowAnyHeader();
+}));
 
 builder.Services.AddControllers();
 // Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
@@ -32,6 +37,7 @@ builder.Services.AddScoped<IFamillyService, FamillyService>();
 
 
 var app = builder.Build();
+app.UseCors(Myplociy); // Use CORS before any other middleware
 
 // Configure the HTTP request pipeline.
 if (app.Environment.IsDevelopment())
