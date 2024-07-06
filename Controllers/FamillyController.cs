@@ -40,14 +40,11 @@ namespace ERP_Anass_backend.Controllers
         }
 
         [HttpPut("UpdateFamilly/{id}")]
-        public IActionResult UpdateFamilly(int id, Familly familly)
+        public ActionResult<Familly> UpdateFamilly(int id, Familly familly)
         {
-            if (id != familly.idFamilly)
-            {
-                return BadRequest();
-            }
-            _famillyService.UpdateFamilly(familly);
-            return NoContent();
+            familly.idFamilly = id;
+            
+            return _famillyService.UpdateFamilly(familly);
         }
 
         [HttpDelete("DeleteFamilly/{id}")]

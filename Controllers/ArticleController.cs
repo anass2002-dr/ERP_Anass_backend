@@ -17,9 +17,9 @@ namespace ERP_Anass_backend.Controllers
         }
 
         [HttpGet("GetArticles")]
-        public ActionResult<IEnumerable<Article>> GetArticles()
+        public ActionResult<IEnumerable<dynamic>> GetArticles()
         {
-            return Ok(_articleService.GetArticles());
+            return Ok(_articleService.GetArticlesDetails());
         }
 
         [HttpGet("GetArticleById/{id}")]
@@ -36,26 +36,18 @@ namespace ERP_Anass_backend.Controllers
         [HttpPost("AddArticle")]
         public ActionResult<Article> AddArticle(Article article)
         {
-            //var article = new Article
-            //{
-            //    ArticleRef = ArticleDtos.ArticleRef,
-            //    ArticleName = ArticleDtos.ArticleName,
-            //    DescriptionArticle = ArticleDtos.DescriptionArticle,
-            //    StockQuantity = ArticleDtos.StockQuantity,
-            //    PurchasePrice=ArticleDtos.PurchasePrice,
-            //    SellingPrice=ArticleDtos.SellingPrice,
-            //    FamilyID=ArticleDtos.FamilyID,
-            //};
+            article.Familly = new Familly();
             _articleService.AddArticle(article);
             return CreatedAtAction(nameof(GetArticleById), new { id = article.idArticle }, article);
         }
 
         [HttpPut("UpdateArticle/{id}")]
-        public ActionResult<Article> UpdateArticlePartial(int id, [FromBody] ArticleDtos articleDto)
+        public ActionResult<Article> UpdateArticlePartial(int id,Article article)
         {
             try
             {
-                var updatedArticle = _articleService.UpdateArticle(id, articleDto);
+
+                var updatedArticle = _articleService.UpdateArticle(id, article);
                 return Ok(updatedArticle);
             }
             catch (KeyNotFoundException ex)
